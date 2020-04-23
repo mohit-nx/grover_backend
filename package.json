@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app/index.js --exec babel-node app/index.js",
-    "build": "npm run installBabel && npm run remove-dist && babel app --out-dir dist",
+    "build": "npm run remove-dist && babel app --out-dir dist",
     "remove-dist": "rm -rf dist",
     "startup": "node dist/index.js",
     "installBabel": "npm install -g babel-cli && npm i babel-core -g && npm install babel-preset-env -g"
@@ -21,6 +21,12 @@
   "author": "mohit dang",
   "license": "ISC",
   "dependencies": {
+    "@babel/preset-env": "^7.1.0",
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/node": "^7.0.0",
+    "nodemon": "^1.18.4",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
@@ -32,13 +38,5 @@
     "mongoose": "5.4.22",
     "morgan": "^1.10.0",
     "regenerator-runtime": "^0.13.5"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.1.2",
-    "@babel/core": "^7.1.2",
-    "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/node": "^7.0.0",
-    "nodemon": "^1.18.4"
   }
 }

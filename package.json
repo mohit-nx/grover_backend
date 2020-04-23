@@ -8,7 +8,8 @@
     "start": "nodemon app/index.js --exec babel-node app/index.js",
     "build": "npm run remove-dist && babel app --out-dir dist",
     "remove-dist": "rm -rf dist",
-    "startup": "node dist/index.js"
+    "startup": "node dist/index.js",
+    "postinstall": "npm run build"
   },
   "keywords": [
     "simple",

@@ -9,7 +9,7 @@
     "build": "npm run installBabel && npm run remove-dist && babel app --out-dir dist",
     "remove-dist": "rm -rf dist",
     "startup": "node dist/index.js",
-    "installBabel": "npm install -g babel-cli"
+    "installBabel": "npm install -g babel-cli && npm i babel-core -g"
   },
   "keywords": [
     "simple",

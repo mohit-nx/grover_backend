@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import helmet from 'helmet';
+import morgan from 'morgan';
 
 import routes from './routes';
 import errorHandler from './middlewares/errorHandler';
@@ -11,9 +12,10 @@ import notFound from './middlewares/notFound';
 import config from './config';
 
 const app = express()
-
 const initRoutes = () => {
 	app.use('/api/', routes);
+	app.use("/", express.static("build"))
+	// app.use("*", (req, res) => res.status(404).json({ error: "not found" }))
 
 	app.use(notFound);
 	app.use(errorHandler);
@@ -29,11 +31,14 @@ const initCors = () => {
 	app.use(
 		cors({
 			optionsSuccessStatus: 200,
-			// origin: JSON.parse(this.coreConfig.corsOrigin)
 			origin: config.corsOrigin
 			// credentials: true,
 		})
 	);
+}
+
+const initMorgan = () => {
+	app.use(morgan('dev'))
 }
 
 const initHelmet = () => {
@@ -43,6 +48,7 @@ const initHelmet = () => {
 const init = () => {
 	initBodyParser();
 	initCors();
+	initMorgan();
 	initHelmet();
 	initRoutes();
 	

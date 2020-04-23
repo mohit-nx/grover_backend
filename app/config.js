@@ -9,7 +9,7 @@ const configurations = Object.freeze({
   mongoUri: envVars.MONGO_URL,
   password: envVars.PASSWORD,
   secret: envVars.TOKEN_SECRET,
-  corsOrigin: envVars.CORS_ORIGIN
+  corsOrigin: envVars.CORS_ORIGIN.split(',').map(origin => origin.trim())
 });
 
 export default configurations;

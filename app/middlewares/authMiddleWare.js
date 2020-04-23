@@ -1,31 +1,29 @@
 import jwt from 'jsonwebtoken';
-import userRepository from '../repositories/user';
+import UserRepository from '../repositories/user';
 import config from '../config';
+
 
 const authMiddleware = async (req, res, next) => {
 	const { headers: { authorization } } = req;
 	if (!authorization) {
-		next({ error: 'Unauthorized', message: 'authorization not found', status: 403 });
+		next({ error: 'Unauthorized', message: 'authorization not found', status: 401 });
 	}
 
 	const { secret } = config;
 	let user;
 	try {
-		user = jwt.verify(authorization, secret);
+		user = jwt.verify(authorization.split(' ')[1], secret);
 	} catch (err) {
-		next({ error: 'Unauthorized', message: 'User not Authorized', status: 403 });
+		return next({ error: 'Unauthorized', message: 'User not Authorized', status: 401 });
 	}
-
-	console.log('User is', user);
 
 	if (!user) {
-		next({ error: 'Unauthorized', message: 'User not Authorized', status: 403 });
+		return next({ error: 'Unauthorized', message: 'User not Authorized', status: 403 });
 	}
-
-	const userData = await userRepository.findOne({ _id: user.id });
+	const userData = await UserRepository.getInstance().getById(user._id);
 
 	if (!userData) {
-		next({ error: 'Unauthorized', message: 'Permission Denied', status: 403 });
+		return next({ error: 'Unauthorized', message: 'Permission Denied', status: 401 });
 	}
 
 	req.user = userData;

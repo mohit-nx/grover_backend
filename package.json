@@ -9,7 +9,8 @@
     "build": "npm run remove-dist && babel app --out-dir dist",
     "remove-dist": "rm -rf dist",
     "startup": "node dist/index.js",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "heroku-postbuild": "npm install -g babel-cli && npm run build"
   },
   "keywords": [
     "simple",

@@ -6,11 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app/index.js --exec babel-node app/index.js",
-    "build": "npm run remove-dist && babel app --out-dir dist",
+    "build": "npm run installBabel && npm run remove-dist && babel app --out-dir dist",
     "remove-dist": "rm -rf dist",
     "startup": "node dist/index.js",
-    "postinstall": "npm run build",
-    "heroku-postbuild": "npm install -g babel-cli && npm run build"
+    "installBabel": "npm install -g babel-cli"
   },
   "keywords": [
     "simple",

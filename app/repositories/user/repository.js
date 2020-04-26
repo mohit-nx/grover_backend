@@ -14,15 +14,15 @@ class UserRepository {
   }
 
   list(query, projection = {}, options = {}) {
-    return this.model.find(filter, projection, options)
+    return this.model.find(query, projection, options).lean();
   }
 
   findOne(query) {
-    return this.model.findOne(query)
+    return this.model.findOne(query).lean();
   }
 
   getById(id) {
-    return this.model.findById(id);
+    return this.model.findById(id).lean();
   }
 
   update(id, dataToUpdate) {
@@ -39,6 +39,10 @@ class UserRepository {
       _id: String(Types.ObjectId()),
     });
     return record.save()
+  }
+
+  async delete(id) {
+    return this.model.deleteOne({ _id: id });
   }
 }
 

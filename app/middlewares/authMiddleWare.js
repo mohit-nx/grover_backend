@@ -3,7 +3,7 @@ import UserRepository from '../repositories/user';
 import config from '../config';
 
 
-const authMiddleware = async (req, res, next) => {
+const authMiddleware = (permission) => async (req, res, next) => {
 	const { headers: { authorization } } = req;
 	if (!authorization) {
 		next({ error: 'Unauthorized', message: 'authorization not found', status: 401 });
@@ -26,8 +26,14 @@ const authMiddleware = async (req, res, next) => {
 		return next({ error: 'Unauthorized', message: 'Permission Denied', status: 401 });
 	}
 
+	console.log(">>>>", permission, userData[permission])
+
+	if (permission && !userData[permission]) {
+		return next({ error: 'Unauthorized', message: 'Unaccesable Resource', status: 401 });
+	}
+
 	req.user = userData;
-	next();
+	return next();
 }
 
 export default authMiddleware

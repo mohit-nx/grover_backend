@@ -15,7 +15,7 @@ const app = express()
 const initRoutes = () => {
 	app.use('/api/', routes);
 	app.use("/", express.static("build"))
-	// app.use("*", (req, res) => res.status(404).json({ error: "not found" }))
+	app.use("*", (req, res) => res.cookie('url', req.originalUrl).redirect('/'))
 
 	app.use(notFound);
 	app.use(errorHandler);

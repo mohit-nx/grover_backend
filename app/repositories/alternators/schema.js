@@ -16,6 +16,7 @@ const alternators = new Schema({
 	model: String,
 	engineCodes: [String],
 	imgUrl: {type: [String], required: true},
+	createdAt: { type: Date, required: true},
 });
 
 export default alternators;

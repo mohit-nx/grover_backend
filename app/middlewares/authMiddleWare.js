@@ -26,9 +26,10 @@ const authMiddleware = (permission) => async (req, res, next) => {
 		return next({ error: 'Unauthorized', message: 'Permission Denied', status: 401 });
 	}
 
-	console.log(">>>>", permission, userData[permission])
-
-	if (permission && !userData[permission]) {
+	if (permission && (!userData.isAdmin && (
+		(Array.isArray(permission) && !permission.every(p => userData[p]))
+		|| !userData[permission]
+	))) {
 		return next({ error: 'Unauthorized', message: 'Unaccesable Resource', status: 401 });
 	}
 

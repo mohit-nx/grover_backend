@@ -14,7 +14,10 @@ class AlternatorRepository {
   }
 
   list(query, projection = {}, options = {}) {
-    return this.model.find(query, projection, options)
+    return this.model.find(query, projection)
+      .sort(options.sort)
+      .skip(options.skip)
+      .limit(options.limit)
   }
 
   get(id) {
@@ -28,6 +31,7 @@ class AlternatorRepository {
   create(data) {
     const record = this.model({
       ...data,
+      createdAt: new Date(),
       _id: String(Types.ObjectId()),
     });
     return record.save()

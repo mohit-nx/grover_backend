@@ -92,7 +92,7 @@ const create = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   try {
     const { params: { id } } = req;
-    const user = await UserRepository.getInstance().findById(id);
+    const user = await UserRepository.getInstance().getById(id);
     if (!user || (user && user.admin)) {
       return next({ status: 403, message: 'Cannot delete this user' })
     }
